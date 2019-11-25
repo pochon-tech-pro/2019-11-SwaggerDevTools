@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  tools:
+    build: ./
+    volumes:
+      - .:/app
+    tty: true
+    command: sh
+  
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./openapi.yml:/usr/share/nginx/html/openapi.yml
+    environment:
+      API_URL: openapi.yml
+    ports:
+      - "9001:8080"
+
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    ports:
+      - "9002:8080"
